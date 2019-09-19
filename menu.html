@@ -1,9 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
 
-    </head>
-    <body>
-        <h1>This is the menu for our extension. Add UI elements here.</h1>
-    </body>
+<head>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom-styles.css" rel="stylesheet">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/menu.js"></script>
+</head>
+
+<body>
+    
+    <div id='extension-popup'>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="select-option">
+                            Select accessibility option below.
+                        </label>
+                        <select id="select-option" class="form-control">
+                            <option value='js/dyslexia.js'>Dyslexia</option>
+                            <option value='js/adhd.js'>ADHD</option>
+                            <option value='js/redgreen.js'>Red-Green</option>
+                            <option value='js/blueyellow.js'>Blue-Yellow</option>
+                            <option value='js/mono.js'>Monochromacy</option>
+                        </select>
+                    </div>
+                    <button id="save-button" class="btn btn-success btn-block">Save</button>
+                    <p>This UI will change eventually. This is currently only in use for testing purposes. Selecting each of the options will inject a different content script into the page.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
 </html>

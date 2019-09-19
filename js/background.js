@@ -1,8 +1,14 @@
-
-//This runs on installation
-chrome.runtime.onInstalled.addListener(function()   {
-    chrome.storage.sync.set({color: '#3aa757'}, function() {
-        console.log('The color is green.');
-    })
+//init
+chrome.runtime.onInstalled.addListener(function () {
+    chrome.storage.sync.set({ contentscript: 'js/dyslexia.js' }, function () {
+        console.log("Content script is set to default.");
+    });
 });
 
+chrome.webNavigation.onCompleted.addListener(function() {
+    chrome.storage.sync.get('contentscript', function (data) {
+        chrome.tabs.executeScript({
+            file : data.contentscript
+        });
+    });
+});

@@ -17,7 +17,8 @@
     "permissions": [
         "activeTab",
         "declarativeContent",
-        "storage"
+        "storage",
+        "webNavigation"
     ],
     "icons": {
         "16": "img/get_started16.png",
