@@ -1,6 +1,6 @@
 {
-    "name": "Hello Extensions",
-    "description": "Base Level Extension",
+    "name": "ELEC 490 Chrome Extension",
+    "description": "Accessibility Extension",
     "version": "1.0",
     "manifest_version": 2,
     "browser_action": {
