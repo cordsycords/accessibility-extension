@@ -7,8 +7,8 @@ chrome.runtime.onInstalled.addListener(function () {
 
 chrome.webNavigation.onCompleted.addListener(function() {
     chrome.storage.sync.get('contentscript', function (data) {
-        chrome.tabs.executeScript({
-            file : data.contentscript
+        chrome.tabs.executeScript(null, { file: "js/jquery-3.4.1.min.js" }, function() {
+            chrome.tabs.executeScript(null, { file : data.contentscript });
         });
     });
 });

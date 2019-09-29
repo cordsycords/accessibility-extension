@@ -15,10 +15,13 @@
         "persistent": false
     },
     "permissions": [
+        "tabs",
         "activeTab",
         "declarativeContent",
         "storage",
-        "webNavigation"
+        "webNavigation",
+        "http://*/",
+        "https://*/"
     ],
     "icons": {
         "16": "img/get_started16.png",
