@@ -1,6 +1,7 @@
 $(function () {
     var attrs = {};
-    $("i").replaceWith(function () {
+    freezeAllGifs();
+    /*$("i").replaceWith(function () {
         return $("<strong />", attrs).append($(this).contents());
     });
 
@@ -9,7 +10,7 @@ $(function () {
     });
     $("marquee").replaceWith(function(){
         return $("<div />", attrs).append($(this).contents());
-    });
+    });*/
     $(":visible").find('*').each(function () {
         var fontStyle = $(this).css("font-style");
         var fontFamily = $(this).css("font-family");
@@ -19,8 +20,17 @@ $(function () {
         console.log(backgroundColor);
         console.log(RGBA_To_Hex(backgroundColor));
         colorManager(backgroundColor);
+        if($(this).is("em") ||$(this).is("i")){
+           return $("<strong />", attrs).append($(this).contents());
+        }
+        if($(this).is("marquee")){
+            return $("<div />", attrs).append($(this).contents());
+        }                        
         if (fontStyle == "italic") {
             $(this).css({ "font-style": "normal" });
+        }
+        if($(this).is("img")){
+            $this.stop();
         }
         //if (backgroundColor == "rgb(255, 255, 255)" || ) {
         //    $(this).css("background-color", "#fffff8");
@@ -101,3 +111,44 @@ function additionDoesOverflow(a, b) {
   var c = a + b;
   return a !== c-b || b !== c-a;
 };
+function removeExtraSpaces(string){ return string.replace(/\s{2,}/g, ' ');}
+
+function freezeGif(img) {
+    var width = img.width,
+    height = img.height,
+    canvas = createElement('canvas', function(clone) {
+        clone.width = width;
+        clone.height = height;
+    }),
+    attr,
+    i = 0;
+
+    var freeze = function() {
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+
+        for (i = 0; i < img.attributes.length; i++) {
+            attr = img.attributes[i];
+
+            if (attr.name !== '"') { // test for invalid attributes
+                canvas.setAttribute(attr.name, attr.value);
+            }
+        }
+
+        canvas.style.position = 'absolute';
+
+        img.parentNode.insertBefore(canvas, img);
+        img.style.opacity = 0;
+    };
+
+    if (img.complete) {
+        freeze();
+    } else {
+        img.addEventListener('load', freeze, true);
+    }
+}
+
+function freezeAllGifs() {
+    return new Array().slice.apply(document.images).map(freezeGif);
+}
+
+
