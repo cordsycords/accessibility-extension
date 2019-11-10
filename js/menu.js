@@ -1,48 +1,53 @@
 $(function() {
     
+    init();
+
     document.getElementById('save-button').onclick = function(e) {
         aeOptions = {};
 
         $('.ae-option').each(function() {
             if($(this).is('select')) {
-                aeOptions[$(this).attr('id')] = $(this).value;
+                aeOptions[$(this).attr('id')] = $(this).prop('value');
             } else if ($(this).is('input')) {
                 switch ($(this).attr('type')) {
                     case 'checkbox':
-                        aeOptions[$(this).attr('id')] = $(this)[0].checked;
+                        aeOptions[$(this).attr('id')] = $(this).prop('checked');
                         console.log($(this));
                         break;
                     case 'text':
-                        aeOptions[$(this).attr('id')] = $(this).value;
+                        aeOptions[$(this).attr('id')] = $(this).prop('value');
                         break;
 
                 }
             }
         });
 
-        console.log(aeOptions);
         chrome.storage.sync.set( {options: aeOptions}, function () {
             chrome.tabs.reload();
         });
 
     };
-
-    init();
 });
 
 function init() {
     chrome.storage.sync.get('options', function (data) {
-        let boldCB = document.getElementById('text-bold');
-        let underlineCB = document.getElementById('text-link-underline');
-        let fontCB = document.getElementById('text-fontchange');
-        let fontChoiceDD = document.getElementById('text-fontchange-value');
-        let tableCB = document.getElementById('color-table');
+        aeOptions = data.options;
 
-        boldCB.checked = data.options.bold;
-        underlineCB.checked = data.options.underline;
-        fontCB.checked = data.options.personalText.enabled;
-        fontChoiceDD.value = data.options.personalText.fontchoice;
-        tableCB.checked = data.options.table;
+        $('.ae-option').each(function() {
+            if($(this).is('select')) {
+                $(this).prop('value', aeOptions[$(this).attr('id')]);
+            } else if ($(this).is('input')) {
+                switch ($(this).attr('type')) {
+                    case 'checkbox':
+                        $(this).prop('checked', aeOptions[$(this).attr('id')]);
+                        break;
+                    case 'text':
+                         $(this).prop('value', aeOptions[$(this).attr('id')]);
+                        break;
+
+                }
+            }
+        });
     });
 }
 
