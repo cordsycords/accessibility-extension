@@ -7,7 +7,9 @@ $(function () {
     $("em").replaceWith(function () {
         return $("<strong />", attrs).append($(this).contents());
     });
-
+    $("marquee").replaceWith(function(){
+        return $("<div />", attrs).append($(this).contents());
+    });
     $(":visible").find('*').each(function () {
         var fontStyle = $(this).css("font-style");
         var fontFamily = $(this).css("font-family");
