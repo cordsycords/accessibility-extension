@@ -31,6 +31,13 @@ $(function () {
         }
         if($(this).is("img")){
             $this.stop();
+            Caman('#my-image', function () {
+                this.brightness(10);
+                this.contrast(30);
+                this.sepia(60);
+                this.saturation(-30);
+                this.render();
+            });
         }
         //if (backgroundColor == "rgb(255, 255, 255)" || ) {
         //    $(this).css("background-color", "#fffff8");
