@@ -8,21 +8,12 @@ chrome.runtime.onInstalled.addListener(function () {
 chrome.webNavigation.onCompleted.addListener(function() {
     chrome.storage.sync.get('options', function (data) {
         chrome.tabs.executeScript(null, { file: "js/jquery-3.4.1.min.js" }, function() {
-            
-            if(data.options.bold) {
-                chrome.tabs.executeScript(null, { file : 'js/bold.js' });
-            }
+            aeOptions = data.options;
 
-            if(data.options.underline) {
-                chrome.tabs.executeScript(null, { file : 'js/underline.js' });
-            }
-
-            if(data.options.personalText.enabled) {
-                chrome.tabs.executeScript(null, { file : 'js/fontchange.js' });
-            }
-
-            if(data.options.table) {
-                chrome.tabs.executeScript(null, {file : 'js/table.js'});
+            for(const key of Object.keys(aeOptions)) {
+                if(typeof(aeOptions[key]) === 'boolean' && aeOptions[key] === true) {
+                    chrome.tabs.executeScript(null, {file : 'js/' + key + '.js'});
+                }
             }
         });
     });
