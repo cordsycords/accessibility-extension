@@ -1,6 +1,11 @@
 $(function() {
     var attrs = { };
-    var backgroundColorChange = "#fff000";//rgb(255,255,0);
+    var hexcolour = '';
+    var backgroundColorChange = "#FFFFF0";
+    
+    // $("body").find('*').each(function(){
+
+    // });
     $("i").replaceWith(function () {
         return $("<strong />", attrs).append($(this).contents());
     });
@@ -8,23 +13,67 @@ $(function() {
     $("em").replaceWith(function () {
         return $("<strong />", attrs).append($(this).contents());
     });
+    $("p").find('*').each(function(){
 
-   $(":visible").find('*').each(function(){ 
+        var str = $(this).text();//.replace(/\s\s+/g, ' ') ;
+        console.log(str);
+        //$(this).contents.replaceWith(str);
+    });
+//$("")
+   $(":visible").find('*').each(function(){
+       var colour = $(this).css("background-color");
+       console.log(colour);
+       var rgbaregix = /^rgba?\(/\[255],/\,\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/;
+       match
+       if(colour == "rgb(255, 255, 255)" || colour == "rgba(255, 255, 255, $)"){
+            $(this).css("background-color", backgroundColorChange);
+            console.log($(this).css("background-color"));
+       }
+       else if(colour == "rgba(0, 0, 0, 0)"){
+        $(this).css("background-color", "rgba(100, 100, 100, 0)");
+        console.log($(this).css("background-color"));
+       }
+       //hexc(colour);
+       //console.log(hexcolour);
+    // if(=="FFFFFF") {
+    //     $(this).css("background-color", backgroundColorChange);
+    // }
+    //    var str = $(this).contents();
+    //    str = str.replace(/\s\s+/g, ' ') ;
+    //    $(this).contents.replaceWith(str);
         //var currentBackgroundColor = RGBToHex($(this).css("background-color"));
         //var newBackgroundColor =   subHexColor(currentBackgroundColor, backgroundColorChange);
         
         //alert( newBackgroundColor);
-        $(this).css("background-color", backgroundColorChange);
+        //$(this).css("background-color", backgroundColorChange);
+        if($(this).is('body')){}
+        else{
+            //var bcolour = $(this).css("background-color");
+            //if(bcolour == "transparent"){}
+            // if($(this).css("background-color")=="White"){
+            //     $(this).css('background-color', backgroundColorChange);
+            // }
+        }
         $(this).css({"font-family": "Arial, Helvetica, sans-serif","word-spacing": "10",});
-        $(this).css("color", "#000000");
+        if($(this).css("line-height") < 1.5){
+            $(this).css("line-height", "1.5");
+        }
+        if($(this).css("font-style")=="italic"){
+            $(this).css("font-style", "normal");
+        }
     })
 
-    $("p").find('*').each(function(){
-        //if($(this).css("line-height", "1.5"))
-        $(this).css("line-height", "1.5");
-        //}
-    })
+
 });
+function hexc(colorval) {
+    var parts = colorval.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    delete(parts[0]);
+    for (var i = 1; i <= 3; ++i) {
+        parts[i] = parseInt(parts[i]).toString(16);
+        if (parts[i].length == 1) parts[i] = '0' + parts[i];
+    }
+    hexcolour = '#' + parts.join('');
+}
 /* function addHexColor(c1, c2) {
     var hexStr = (parseInt(c1, 16) + parseInt(c2, 16)).toString(16);
     while (hexStr.length < 6) { hexStr = '0' + hexStr; } // Zero pad.
