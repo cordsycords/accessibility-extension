@@ -1,161 +1,179 @@
-$(function () {
-    var attrs = {};
-    freezeAllGifs();
-    /*$("i").replaceWith(function () {
+$(function() {
+    var attrs = { };
+    var hexcolour = '';
+    var backgroundColorChange = "#FFFFF0";
+    
+    // $("body").find('*').each(function(){
+
+    // });
+    $("i").replaceWith(function () {
         return $("<strong />", attrs).append($(this).contents());
     });
 
     $("em").replaceWith(function () {
         return $("<strong />", attrs).append($(this).contents());
     });
-    $("marquee").replaceWith(function(){
-        return $("<div />", attrs).append($(this).contents());
-    });*/
-    $(":visible").find('*').each(function () {
-        var fontStyle = $(this).css("font-style");
-        var fontFamily = $(this).css("font-family");
-        var backgroundColor = $(this).css("background-color");
-        //console.log(fontStyle);
-        //console.log(fontFamily);
-        console.log(backgroundColor);
-        console.log(RGBA_To_Hex(backgroundColor));
-        colorManager(backgroundColor);
-        if($(this).is("em") ||$(this).is("i")){
-           return $("<strong />", attrs).append($(this).contents());
-        }
-        if($(this).is("marquee")){
-            return $("<div />", attrs).append($(this).contents());
-        }                        
-        if (fontStyle == "italic") {
-            $(this).css({ "font-style": "normal" });
-        }
-        if($(this).is("img")){
-            $this.stop();
-            Caman('#my-image', function () {
-                this.brightness(10);
-                this.contrast(30);
-                this.sepia(60);
-                this.saturation(-30);
-                this.render();
-            });
-        }
-        //if (backgroundColor == "rgb(255, 255, 255)" || ) {
-        //    $(this).css("background-color", "#fffff8");
-        //}
-        $(this).css({ "font-family": "Arial, Helvetica, sans-serif", "word-spacing": "10"});
+    $("p").find('*').each(function(){
+
+        var str = $(this).text();//.replace(/\s\s+/g, ' ') ;
+        console.log(str);
+        //$(this).contents.replaceWith(str);
     });
-
-    //$(":visible").find('*').each(function () {
-    //    //var currentBackgroundColor = RGBToHex($(this).css("background-color"));
-    //    //var newBackgroundColor =   subHexColor(currentBackgroundColor, backgroundColorChange);
-
-    //    //alert( newBackgroundColor);
-    //    $(this).css("background-color", backgroundColorChange);
-    //    
-    //    $(this).css("color", "#000000");
-    //});
-
-    //$("p").find('*').each(function () {
-    //    //if($(this).css("line-height", "1.5"))
-    //    $(this).css("line-height", "1.5");
-    //    //}
-    //});
-});
-
-function colorManager(backgroundColor) {
-    isRGBA(backgroundColor);
-    var hexBackgroundColor = RGBA_To_Hex(backgroundColor);
-    isHexColor = hexBackgroundColor => typeof hexBackgroundColor === 'string' && hexBackgroundColor.length === (6 || 8) && !isNaN(Number('0x' + hexBackgroundColor))
-    if (isHexColor) {
-        if (hexBackgroundColor == ("#ffffff")) {
-            $(this).css("background-color", "#fffff8");
+//$("")
+   $(":visible").find('*').each(function(){
+       var colour = $(this).css("background-color");
+       console.log(colour);
+       var rgbRegix = /rgb\(25[0-6],\s25[0-6],\s25[0-6]\)/g;
+       var rgbaRegix = /rgba\(25[0-6],\s25[0-6],\s25[0-6],\s(\d*\.\d+),?\)/g;
+       //match
+       if(colour.match(rgbRegix) != null || colour.match(rgbaRegix)){
+            $(this).css("background-color", backgroundColorChange);
+            console.log($(this).css("background-color"));
+       }
+       //hexc(colour);
+       //console.log(hexcolour);
+    // if(=="FFFFFF") {
+    //     $(this).css("background-color", backgroundColorChange);
+    // }
+    //    var str = $(this).contents();
+    //    str = str.replace(/\s\s+/g, ' ') ;
+    //    $(this).contents.replaceWith(str);
+        //var currentBackgroundColor = RGBToHex($(this).css("background-color"));
+        //var newBackgroundColor =   subHexColor(currentBackgroundColor, backgroundColorChange);
+        
+        //alert( newBackgroundColor);
+        //$(this).css("background-color", backgroundColorChange);
+        // if($(this).is('body')){}
+        // else{
+        //     //var bcolour = $(this).css("background-color");
+        //     //if(bcolour == "transparent"){}
+        //     // if($(this).css("background-color")=="White"){
+        //     //     $(this).css('background-color', backgroundColorChange);
+        //     // }
+        // }
+        $(this).css({"font-family": "Arial, Helvetica, sans-serif","word-spacing": "10",});
+        if($(this).css("line-height") < 1.5){
+            $(this).css("line-height", "1.5");
         }
-    }
-};
+        if($(this).css("font-style")=="italic"){
+            $(this).css("font-style", "normal");
+        }
+    })
 
-function isRGBA(input) {
-    var re = /^ (?: #(?: [A - Fa - f0 - 9]{ 3 }) { 1, 2 }| (?: rgb[(](?: \s * 0 * (?: \d\d ? (?: \.\d +) ? (?: \s *%)?|\.\d +\s *%| 100(?: \.0 *) ?\s *%| (?: 1\d\d | 2[0 - 4]\d | 25[0 - 5]) (?: \.\d +)?) \s * (?:, (? ![)]) | (?= [)]))) { 3 }| hsl[(]\s * 0 * (?: [12] ?\d{ 1, 2 }| 3(?: [0 - 5]\d | 60)) \s * (?: \s *, \s * 0 * (?: \d\d ? (?: \.\d +)?\s *%|\.\d +\s *%| 100(?: \.0 *) ?\s *%)) { 2 } \s *| (?: rgba[(](?: \s * 0 * (?: \d\d ? (?: \.\d +) ? (?: \s *%)?|\.\d +\s *%| 100(?: \.0 *) ?\s *%| (?: 1\d\d | 2[0 - 4]\d | 25[0 - 5]) (?: \.\d +)?) \s *,) { 3 }| hsla[(]\s * 0 * (?: [12] ?\d{ 1, 2 }| 3(?: [0 - 5]\d | 60)) \s * (?: \s *, \s * 0 * (?: \d\d ? (?: \.\d +)?\s *%|\.\d +\s *%| 100(?: \.0 *) ?\s *%)) { 2 } \s *,) \s * 0 * (?: \.\d +| 1(?: \.0 *) ?) \s *)[)]) $/
-    var output = re.exec(input);
-    console.log(output);
+
+});
+function hexc(colorval) {
+    var parts = colorval.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    delete(parts[0]);
+    for (var i = 1; i <= 3; ++i) {
+        parts[i] = parseInt(parts[i]).toString(16);
+        if (parts[i].length == 1) parts[i] = '0' + parts[i];
+    }
+    hexcolour = '#' + parts.join('');
 }
+/* function addHexColor(c1, c2) {
+    var hexStr = (parseInt(c1, 16) + parseInt(c2, 16)).toString(16);
+    while (hexStr.length < 6) { hexStr = '0' + hexStr; } // Zero pad.
+   // alert(hexStr);
+    return hexStr;
+  }
+function subHexColor(c1, c2) {
+    var hexStr = (parseInt(c1, 16) - parseInt(c2, 16)).toString(16);
+    while (hexStr.length < 6) { hexStr = '0' + hexStr; } // Zero pad.
+    return hexStr;
+}
+ */
+/* function RGBToHex(rgb) {
+// Choose correct separator
+let sep = rgb.indexOf(",") > -1 ? "," : " ";
+// Turn "rgb(r,g,b)" into [r,g,b]
+rgb = rgb.substr(4).split(")")[0].split(sep);
 
-function RGBA_To_Hex(rgba) {
-    
-    let sep = rgba.indexOf(",") > -1 ? "," : " ";
-    rgba = rgba.substr(4).split(")")[0].split(sep);
-    let r = (+rgba[0]).toString(16),
-        g = (+rgba[1]).toString(16),
-        b = (+rgba[2]).toString(16),
-        a = (+rgba[3]).toString(16);
-    console.log("R: " + r);
-    console.log("G: " + g);
-    console.log("B: " + b);
-    console.log("A: " + a);
-    if (r.length == 1)
-        r = "0" + r;
-    if (g.length == 1)
-        g = "0" + g;
-    if (b.length == 1)
-        b = "0" + b;
-    if (a.length == 1) {
-        a = "0" + a;
-        return "#" + r + g + b + a;
-    }
-    return "#" + r + g + b;
-};
+let r = (+rgb[0]).toString(16),
+    g = (+rgb[1]).toString(16),
+    b = (+rgb[2]).toString(16);
 
-function addHexColor(c1, c2) {
-    var overflow = additionDoesOverflow(parseInt(c1, 16), parseInt(c2, 16))
-    if (overflow == true) {
-        var hexValue = parseInt(c1, 16) + parseInt(c2, 16);
-        var hexStr = (hexValue).toString(16);
-        while (hexStr.length < 6) { hexStr = '0' + hexStr; } // Zero pad.
-        return hexStr;
-    }
-    return backgroundColorChange;
-};
-function additionDoesOverflow(a, b) {
-  var c = a + b;
-  return a !== c-b || b !== c-a;
-};
-function removeExtraSpaces(string){ return string.replace(/\s{2,}/g, ' ');}
+if (r.length == 1)
+    r = "0" + r;
+if (g.length == 1)
+    g = "0" + g;
+if (b.length == 1)
+    b = "0" + b;
 
-function freezeGif(img) {
-    var width = img.width,
-    height = img.height,
-    canvas = createElement('canvas', function(clone) {
-        clone.width = width;
-        clone.height = height;
-    }),
-    attr,
-    i = 0;
+return "#" + r + g + b;
+} */
+      // $(function(){
+    //$("p").css("background-color","red");
+    //$(":header").css("background-color","red");
+    //$(":button").css("background-color","red");
+    //$(":checkbox").css("background-color","red");
+    //$(":radio").css("background-color","red");
+    //$(":reset").css("background-color","red");
+    //$(":input").css("background-color","red");
+    //$(":submit").css("background-color","red");
+    //$(":text").css("background-color","red");
+        ///const style = getComputedStyle(element)
+   //style.backgroundColor //the RGB value
+   //document.body.style.backgroundColor = "#ffff00";
+      // $(document).ready(function(){    
+    //});
+    //.css("background-color","red");
+    //$(":root").css("background-color","red");
+    //$( "body" ).first().css( "background-color", "red" );
+    //$("content").css("background-color","red");
+    //$("mw-body-content").css("background-color","red");
+    //document.body.style.backgroundColor = "lightred";
+    // }
+    //var existing_classes = [];
+    //$('body').find('*').each(function(){ 
+    //    if($(this)[0].className) {
+    //        if(!existing_classes.includes($(this)[0].className)) {
+    //            existing_classes.push($(this)[0].className);
+    //        }
+    //    }
+    //    $
+    //});
+   // document.querySelectorAll("div")
+    //var style = document.createElement('style');
+    //document.head.appendChild(style);
+    //style.sheet.insertRule('#target {color: darkseagreen}');
+    //const element = document.querySelector('.my-element')
+    ///const style = getComputedStyle(element)
+   //style.backgroundColor //the RGB value
+   /*  $(document).ready(function(){
+        // Loop through each div element with the class box
+        $(".element").each(function(){
+            // Test if the div element is empty
+            if($(this).is(":empty")){
+                $(this).css("background", "red");
+            }
+        });
+    });  */
+    //
+   // document.getElementById("content").style.backgroundColor = "lightblue";
+    //document.getElementById("mw-body-content").style.backgroundColor = "lightblue";
 
-    var freeze = function() {
-        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
 
-        for (i = 0; i < img.attributes.length; i++) {
-            attr = img.attributes[i];
 
-            if (attr.name !== '"') { // test for invalid attributes
-                canvas.setAttribute(attr.name, attr.value);
+//    var existing_classes = [];
+ /*   $('body').find('*.css').each(function(){ 
+        if($(this)[0].className) {
+            if(!existing_classes.includes($(this)[0].className)) {
+                existing_classes.push($(this)[0].className);
             }
         }
+        $
+    });
+    //    if(document.body.style.backgroundColor == "white"){
+    
 
-        canvas.style.position = 'absolute';
-
-        img.parentNode.insertBefore(canvas, img);
-        img.style.opacity = 0;
-    };
-
-    if (img.complete) {
-        freeze();
-    } else {
-        img.addEventListener('load', freeze, true);
-    }
-}
-
-function freezeAllGifs() {
-    return new Array().slice.apply(document.images).map(freezeGif);
-}
-
-
+    //    }
+*/
+/* 
+    var currentNode,
+    ni = document.createNodeIterator(document.documentElement, NodeFilter.SHOW_ELEMENT);
+ */
+/*     while(currentNode = ni.nextNode()) {
+        currentNode.style.
+        console.log(currentNode.nodeName);
+    } */
