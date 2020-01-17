@@ -23,15 +23,12 @@ $(function() {
    $(":visible").find('*').each(function(){
        var colour = $(this).css("background-color");
        console.log(colour);
-       var rgbaregix = /^rgba?\(/\[255],/\,\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/;
-       match
-       if(colour == "rgb(255, 255, 255)" || colour == "rgba(255, 255, 255, $)"){
+       var rgbRegix = /rgb\(25[0-6],\s25[0-6],\s25[0-6]\)/g;
+       var rgbaRegix = /rgba\(25[0-6],\s25[0-6],\s25[0-6],\s(\d*\.\d+),?\)/g;
+       //match
+       if(colour.match(rgbRegix) != null || colour.match(rgbaRegix)){
             $(this).css("background-color", backgroundColorChange);
             console.log($(this).css("background-color"));
-       }
-       else if(colour == "rgba(0, 0, 0, 0)"){
-        $(this).css("background-color", "rgba(100, 100, 100, 0)");
-        console.log($(this).css("background-color"));
        }
        //hexc(colour);
        //console.log(hexcolour);
@@ -46,14 +43,14 @@ $(function() {
         
         //alert( newBackgroundColor);
         //$(this).css("background-color", backgroundColorChange);
-        if($(this).is('body')){}
-        else{
-            //var bcolour = $(this).css("background-color");
-            //if(bcolour == "transparent"){}
-            // if($(this).css("background-color")=="White"){
-            //     $(this).css('background-color', backgroundColorChange);
-            // }
-        }
+        // if($(this).is('body')){}
+        // else{
+        //     //var bcolour = $(this).css("background-color");
+        //     //if(bcolour == "transparent"){}
+        //     // if($(this).css("background-color")=="White"){
+        //     //     $(this).css('background-color', backgroundColorChange);
+        //     // }
+        // }
         $(this).css({"font-family": "Arial, Helvetica, sans-serif","word-spacing": "10",});
         if($(this).css("line-height") < 1.5){
             $(this).css("line-height", "1.5");
