@@ -2,33 +2,32 @@ $(function() {
     var attrs = { };
     var hexcolour = '';
     var backgroundColorChange = "#FFFFF0";
-    
-    // $("body").find('*').each(function(){
+    var rgbRegex = /rgb\(25[0-6],\s25[0-6],\s25[0-6]\)/g;
+    var rgbaRegex = /rgba\(25[0-6],\s25[0-6],\s25[0-6],\s(\d*\.\d+),?\)/g;
+    var doubleSpaceRegex = / +/g;
+    var doubleSpace = "  ";
 
-    // });
     $("i").replaceWith(function () {
         return $("<strong />", attrs).append($(this).contents());
     });
-
     $("em").replaceWith(function () {
         return $("<strong />", attrs).append($(this).contents());
     });
-    $("p").find('*').each(function(){
-
-        var str = $(this).text();//.replace(/\s\s+/g, ' ') ;
-        console.log(str);
-        //$(this).contents.replaceWith(str);
+    $("p").each(function(){
+        $(this).text().replace(doubleSpaceRegex, " ");
     });
-//$("")
+
    $(":visible").find('*').each(function(){
        var colour = $(this).css("background-color");
-       console.log(colour);
-       var rgbRegix = /rgb\(25[0-6],\s25[0-6],\s25[0-6]\)/g;
-       var rgbaRegix = /rgba\(25[0-6],\s25[0-6],\s25[0-6],\s(\d*\.\d+),?\)/g;
-       //match
-       if(colour.match(rgbRegix) != null || colour.match(rgbaRegix)){
+       //console.log(colour);
+
+       if(colour.match(rgbRegex) != null){
             $(this).css("background-color", backgroundColorChange);
             console.log($(this).css("background-color"));
+       }else if(colour.match(rgbaRegex) != null){
+            var [r,g,b,a] = colour.match(/[\d\.]+/g);;
+            var newColour = "rgba(255, 255, 240, ${a})";
+            $(this).css("background-color", newColour);
        }
        //hexc(colour);
        //console.log(hexcolour);
