@@ -1,6 +1,7 @@
 $(function() {
     var attrs = { };
 
+
     $("i").replaceWith(function () {
         return $("<strong />", attrs).append($(this).contents());
     });
@@ -9,44 +10,81 @@ $(function() {
         return $("<strong />", attrs).append($(this).contents());
     });
 
-    //Alters the Link style of website
-    //1.Changes link text to black
-    //2.Adds blue underline to each link
-    var links = document.getElementsByTagName("a");
-    for(var i=0;i<links.length;i++)
-    {
-        //links[i].style.color = "Black";  
-        links[i].style.textDecoration = "underline"; 
-    }  
+    var title_text_colour = '#6873B1'
+    var background_colour_red ='#A7B8F8'
+    var background_colour_green = '#09458F'//'#052955'
 
-    /*var required_inputs = document.getElementsByTagName("label");
-    for(var i=0;i<required_inputs.length;i++)
-    {
-        //if (required_inputs[i].hasAttribute('required')){
-        old_name = required_inputs[i].textContent;
-        //required_inputs[i].setAttribute("name", "*(required)");
-        required_inputs[i].textContent =  old_name +" *(required)";
-        //}
-    } */
-
-    //Adding "Required" tect to manadatory fields to prevent relying on 
+    //Adding "Required" text to manadatory fields to prevent relying on 
     //colour indicators
     var required_inputs = document.getElementsByTagName("input");
     for(var i=0;i<required_inputs.length;i++)
     {
         required_inputs[i].placeholder = "Required"
-        //required_inputs[i].setAttribute("placeholder", "Required");
     }  
 
-    //For removing Images
-    /*var images = document.getElementsByTagName("img");
-    for(var i=0;i<images.length;i++)
-    {
-        images[i].parentNode.removeChild(images[i]);
-    
-    }*/
+  
+    // Changes colours that the users cannot identify
+    $(":visible").find('*').each(function(){
+        var name = this.className;
+        var count = 0
 
-    //For Altering Backgorund of Tables
+        //Finds background colours that need to be changed. 
+        var back_colour = String($(this).css("background-color"));
+        var originial_colour = $(this).css("background-color")
+        back_colour = back_colour.replace('rgb(','')
+        back_colour = back_colour.replace(')','')
+        var back_red = Number(back_colour.split(',')[0])
+        var back_green = Number(back_colour.split(',')[1])
+        var back_blue = Number(back_colour.split(',')[2])
+        
+        //Checks if white or off-white colour
+        if (back_red >= 170 && back_blue >= 170 && back_green >= 170){
+            $(this).css("background-color", originial_colour)
+        }
+        //Checks for green colours
+        else if (back_green >=90 && back_green > back_blue){
+            $(this).css("background-color", background_colour_green);
+            count = 1;
+        }
+        //Checks for red colours
+        else if (back_red >=150){
+           $(this).css("background-color", background_colour_red);
+          
+        }
+
+        //Finds text colours that need to be changed. 
+        var text_colour =String($(this).css("color"));
+        var original_text_colour = $(this).css("color");
+        text_colour = text_colour.replace('rgb(','')
+        text_colour = text_colour.replace(')','')
+        var red = Number(text_colour.split(',')[0])
+        var green = Number(text_colour.split(',')[1])
+        var blue = Number(text_colour.split(',')[2])
+        
+        //Checks for white text
+        if (red >= 225 && blue >= 225 && green >= 225){
+            $(this).css("color", 'white');
+        }
+        //Checks for red text
+        else if (red >=120){
+           $(this).css("color", title_text_colour);  
+        }
+        //Checks for black text
+        else if (red <= 35 && blue <= 35 && green <= 35){
+            $(this).css("color", 'black')
+        }
+        //Checks is background has been made darker and if so then the text is 
+        //turned white is increase constrast
+        else if (count == 1){
+            $(this).css("color", '#FFFFFF');
+        }
+        else {
+            $(this).css("color", original_text_colour);
+        }
+
+    })
+
+    //For Altering Background of Tables
     //Cell colour
     var tds = document.getElementsByTagName("td");
 
@@ -59,13 +97,16 @@ $(function() {
     for(var i = 0, j = trs.length; i < j; ++i)
         trs[i].style.backgroundColor = "white";
 
-    //Background for Header
-    var ths = document.getElementsByTagName("th");
-
-    for(var i = 0, j = ths.length; i < j; ++i)
-        ths[i].style.backgroundColor = "white";
-        ths[i].style.color = "black";
-
+    //Alters the Link style of website
+    //1.Changes link text to black
+    //2.Adds blue underline to each link
+    var links = document.getElementsByTagName("a");
+    for(var i=0;i<links.length;i++)
+    {
+        links[i].style.textDecoration = "underline"; 
+        links[i].style.fontWeight = "bold"; 
+        
+    }  
 
     var existing_classes = [];
     $('body').find('*').each(function(){ 
@@ -76,6 +117,6 @@ $(function() {
         }
     });
 
-    console.log(existing_classes);
+    //console.log(existing_classes);
 
 });
