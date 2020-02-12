@@ -1,7 +1,7 @@
 $(function() {
     var attrs = { };
 
-
+    var start = performance.now();
     $("i").replaceWith(function () {
         return $("<strong />", attrs).append($(this).contents());
     });
@@ -38,7 +38,7 @@ $(function() {
         var back_blue = Number(back_colour.split(',')[2])
         
         //Checks if white or off-white colour
-        if (back_red >= 170 && back_blue >= 170 && back_green >= 170){
+        if (back_red >= 220 && back_blue >= 220 && back_green >= 220){
             $(this).css("background-color", originial_colour)
         }
         //Checks for green colours
@@ -73,13 +73,14 @@ $(function() {
         else if (red <= 35 && blue <= 35 && green <= 35){
             $(this).css("color", 'black')
         }
-        //Checks is background has been made darker and if so then the text is 
-        //turned white is increase constrast
-        else if (count == 1){
-            $(this).css("color", '#FFFFFF');
-        }
+
         else {
             $(this).css("color", original_text_colour);
+        }
+        //Checks is background has been made darker and if so then the text is 
+        //turned white is increase constrast
+        if (count == 1){
+            $(this).css("color", '#FFFFFF');
         }
 
     })
@@ -117,6 +118,8 @@ $(function() {
         }
     });
 
+    var end = performance.now();
+    console.log("Call to doSomething took " + (end - start) + " milliseconds.");
     //console.log(existing_classes);
 
 });

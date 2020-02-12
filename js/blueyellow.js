@@ -72,13 +72,13 @@ $(function() {
         else if (red <= 35 && blue <= 35 && green <= 35){
             $(this).css("color", 'black')
         }
-        //Checks is background has been made darker and if so then the text is 
-        //turned white is increase constrast
-        else if (count == 1){
-            $(this).css("color", '#FFFFFF');
-        }
         else {
             $(this).css("color", original_text_colour);
+        }
+        //Checks is background has been made darker and if so then the text is 
+        //turned white is increase constrast
+        if (count == 1){
+            $(this).css("color", '#FFFFFF');
         }
 
     })
