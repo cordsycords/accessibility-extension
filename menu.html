@@ -6,29 +6,148 @@
     <link href="css/custom-styles.css" rel="stylesheet">
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/menu.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <style>
+        .form-check {
+            padding-left: 33px;
+        }
+    </style>
 </head>
 
 <body>
-    
+
     <div id='extension-popup'>
         <div class="content">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="select-option">
-                            Select accessibility option below.
-                        </label>
-                        <select id="select-option" class="form-control">
-                            <option value='js/test.js'>Test Page</option>
-                            <option value='js/dyslexia.js'>Dyslexia</option>
-                            <option value='js/adhd.js'>ADHD</option>
-                            <option value='js/redgreen.js'>Red-Green</option>
-                            <option value='js/blueyellow.js'>Blue-Yellow</option>
-                            <option value='js/mono.js'>Monochromacy</option>
-                        </select>
+                    <ul class="nav nav-pills nav-fill">
+                        <li class="nav-item"><a class="nav-link active" href="#presets" data-toggle="tab" role="tab"
+                                aria-controls="text">Recommended Settings</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#text" data-toggle="tab" role="tab"
+                                aria-selected="true">Text</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#color" data-toggle="tab"
+                                role="tab">Color</a></a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="presets" role="tabpanel">
+                            <br>
+                            <div class="form-group row">
+                                <div class="col-5">Dyslexia</div>
+                                <div class="col-7">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="overideDyslexia">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-5">ADHD</div>
+                                <div class="col-7">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="overideADHD">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-5">Colourblindness</div>
+                                <div class="col-7">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="overideColourblindness">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="text" role="tabpanel">
+                            <br>
+                            <div class="form-group row">
+                                <div class="col-5">Change <i>italic</i> text to <b>bold</b>.</div>
+                                <div class="col-7">
+                                    <div class="form-check">
+                                        <input class="form-check-input ae-option" type="checkbox" id="textItalicToBold">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-5"><u>Underline</u> all links.</div>
+                                <div class="col-7">
+                                    <div class="form-check">
+                                        <input class="form-check-input ae-option" type="checkbox" id="textLinkUnderline">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-5">Add "Required" indicator to all mandatory fields.</div>
+                                <div class="col-7">
+                                    <div class="form-check">
+                                        <input class="form-check-input ae-option" type="checkbox" id="textRequired">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-5">Use personal font.</div>
+                                <div class="col-7">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input class="ae-option" id='textFontChange' type="checkbox"
+                                                    aria-label="Checkbox for following text input">
+                                            </div>
+                                        </div>
+                                        <select id='textFontChangeValue' id="select-option" class="form-control ae-option">
+                                            <option value="Arial, Helvetica, sans-serif">Arial</option>
+                                            <option value='"Comic Sans MS", cursive, sans-serif'>Comic Sans MS</option>
+                                            <option value='"Courier New", Courier, monospace'>Courier New</option>
+                                            <option value='Georgia, serif'>Georgia</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="color" role="tabpanel">
+                            <br>
+                            <div class="form-group row">
+                                <div class="col-5">Remove background color from tables.</div>
+                                <div class="col-7">
+                                    <div class="form-check">
+                                        <input class="form-check-input ae-option" type="checkbox" id="colorTable">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-5">Reduce contrast.</div>
+                                <div class="col-7">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input class="ae-option" id='reduceContrast' type="checkbox"
+                                                    aria-label="Checkbox for following text input">
+                                            </div>
+                                        </div>
+                                        <input id='reduceContrastColor' type='color' value=#FFFFF0 class="form-control ae-option">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="movement" role="tabpanel">
+                            <p>Placeholder for MOVEMENT panel</p>
+                        </div>
                     </div>
+                </div>
+                <div class="col-9"></div>
+                <div class="col-3">
                     <button id="save-button" class="btn btn-success btn-block">Save</button>
-                    <p>This UI will change eventually. This is currently only in use for testing purposes. Selecting each of the options will inject a different content script into the page.</p>
                 </div>
             </div>
         </div>
