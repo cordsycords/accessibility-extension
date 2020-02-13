@@ -17,7 +17,9 @@ $(function() {
                     case 'text':
                         aeOptions[$(this).attr('id')] = $(this).prop('value');
                         break;
-
+                    case 'color':
+                        aeOptions[$(this).attr('id')] = $(this).prop('value');
+                        break;
                 }
             }
         });
@@ -27,6 +29,32 @@ $(function() {
         });
 
     };
+
+    document.getElementById('overrideDyslexia').onclick = function(e) {
+        $('.ae-option').each(function() {
+            if($(this).attr('type') === 'checkbox') {
+                $(this).prop('checked', 'false');
+            }
+        });
+    };
+
+    document.getElementById('overrideADHD').onclick = function(e) {
+        $('.ae-option').each(function() {
+            if($(this).attr('type') === 'checkbox') {
+                $(this).prop('checked', 'false');
+            }
+        });
+    };
+
+    document.getElementById('overrideColorblindness').onclick = function(e) {
+        $('.ae-option').each(function() {
+            if($(this).attr('type') === 'checkbox') {
+                $(this).prop('checked', 'false');
+            }
+        });
+    };
+
+
 });
 
 function init() {
@@ -43,6 +71,9 @@ function init() {
                         break;
                     case 'text':
                          $(this).prop('value', aeOptions[$(this).attr('id')]);
+                        break;
+                    case 'color':
+                        $(this).prop('value', aeOptions[$(this).attr('id')]);
                         break;
 
                 }

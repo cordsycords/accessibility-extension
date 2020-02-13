@@ -1,29 +1,24 @@
 $(function () {
+    chrome.storage.sync.get('options', function (data) {
+        let backgroundColorChange = data.options.reduceContrastColor;
+        let rgbRegex = /rgb\(25[0-6],\s25[0-6],\s25[0-6]\)/g;
+        let rgbaRegex = /rgba\(25[0-6],\s25[0-6],\s25[0-6],\s(\d*\.\d+),?\)/g;
 
-    var attrs = { };
-    var hexcolour = '';
-    var backgroundColorChange = "#FFFFF0";
-    var rgbRegex = /rgb\(25[0-6],\s25[0-6],\s25[0-6]\)/g;
-    var rgbaRegex = /rgba\(25[0-6],\s25[0-6],\s25[0-6],\s(\d*\.\d+),?\)/g;
-    var doubleSpaceRegex = / +/g;
-    var doubleSpace = "  ";
-
-    $(":visible").find('*').each(function () {
-        var colour = $(this).css("background-color");
-        //console.log(colour);
-
-        if (colour.match(rgbRegex) != null) {
-            $(this).css("background-color", backgroundColorChange);
-            console.log($(this).css("background-color"));
-        } else if (colour.match(rgbaRegex) != null) {
-            var [r, g, b, a] = colour.match(/[\d\.]+/g);;
-            var newColour = "rgba(255, 255, 240, ${a})";
-            $(this).css("background-color", newColour);
-        }
-
-    })
-
-
+        $(":visible").find('*').each(function () {
+            var colour = $(this).css("background-color");
+            //console.log(colour);
+    
+            if (colour.match(rgbRegex) != null) {
+                $(this).css("background-color", backgroundColorChange);
+                console.log($(this).css("background-color"));
+            } else if (colour.match(rgbaRegex) != null) {
+                var [r, g, b, a] = colour.match(/[\d\.]+/g);;
+                var newColour = "rgba(255, 255, 240, ${a})";
+                $(this).css("background-color", newColour);
+            }
+    
+        });
+    });
 });
 
 function hexc(colorval) {
