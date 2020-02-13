@@ -1,1 +1,0 @@
-//ADHD Accessibility Extension JavaScript Code Module
