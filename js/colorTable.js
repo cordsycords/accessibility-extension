@@ -1,9 +1,14 @@
 $(function() {
-	$('td').css('color', 'black');
-	$('tr').css('color', 'black');
-	$('th').css('color', 'black');
+    //For Altering Background of Tables
+    //Cell colour
+    var tds = document.getElementsByTagName("td");
 
-	$('td').css('background-color', 'white');
-	$('tr').css('background-color', 'white');
-	$('th').css('background-color', 'white');
+    for(var i = 0, j = tds.length; i < j; ++i)
+        tds[i].style.color = "black";
+
+    //Background for rows
+    var trs = document.getElementsByTagName("tr");
+
+    for(var i = 0, j = trs.length; i < j; ++i)
+        trs[i].style.backgroundColor = "white";
 });

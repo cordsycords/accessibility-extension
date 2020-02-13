@@ -5,6 +5,7 @@ $(function() {
     document.getElementById('save-button').onclick = function(e) {
         aeOptions = {};
         overide = '';
+        cboveride = '';
 
         $('.ae-option').each(function() {
             if($(this).is('select')) {
@@ -31,7 +32,9 @@ $(function() {
             }
         });
 
-        chrome.storage.sync.set( {options: aeOptions, overide: overide}, function () {
+        cboveride = $('#select-overide-cb').prop('value');
+
+        chrome.storage.sync.set( {options: aeOptions, overide: overide, cboveride: cboveride}, function () {
             chrome.tabs.reload();
         });
 
@@ -40,7 +43,7 @@ $(function() {
     $('#overideDyslexia').change(function(e) {
         if($(this).prop('checked') === true) {
             $('#overideADHD').prop('checked', '');
-            $('#overideColorblindness').prop('checked', '');
+            $('#overideCB').prop('checked', '');
 
             $('.ae-option').each(function() {
                 if($(this).is('input') && $(this).attr('type') === 'checkbox') {
@@ -61,7 +64,7 @@ $(function() {
     $('#overideADHD').change(function(e) {
         if($(this).prop('checked') === true) {
             $('#overideDyslexia').prop('checked', '');
-            $('#overideColorblindness').prop('checked', '');
+            $('#overideCB').prop('checked', '');
 
             $('.ae-option').each(function() {
                 if($(this).is('input') && $(this).attr('type') === 'checkbox') {
@@ -79,7 +82,7 @@ $(function() {
         }
     });
 
-    $('#overideColorblindness').change(function(e) {
+    $('#overideCB').change(function(e) {
         if($(this).prop('checked') === true) {
             $('#overideDyslexia').prop('checked', '');
             $('#overideADHD').prop('checked', '');
@@ -93,11 +96,34 @@ $(function() {
             $('.overide-cb').each(function() {
                 $(this).prop('checked', 'true');
             });
+
+            $('.overide-' + $('#select-overide-cb').prop('value')).each(function() {
+                $(this).prop('checked', 'true');
+            });
         } else {
             $('.overide-cb').each(function() {
                 $(this).prop('checked', '');
             });
+
+            $('.overide-' + $('#select-overide-cb').prop('value')).each(function() {
+                $(this).prop('checked', '');
+            });
         }
+    });
+    
+    current = $('#select-overide-cb').prop('value');
+
+    $('#select-overide-cb').change(function(e) {
+        console.log(current);
+        $('.overide-' + current).each(function() {
+            $(this).prop('checked', '');
+        });
+
+        $('.overide-' + $(this).prop('value')).each(function() {
+            $(this).prop('checked', 'true');
+        });
+
+        current = $('#select-overide-cb').prop('value');
     });
 
 
@@ -137,6 +163,14 @@ function init() {
 
         if(overide.length > 0) {
             $('#' + overide).prop('checked', 'true');
+        }
+    });
+
+    chrome.storage.sync.get('cboveride', function (data) {
+        overide = data.cboveride;
+
+        if(overide.length > 0) {
+            $('#select-overide-cb').prop('value', overide);
         }
     });
 }
