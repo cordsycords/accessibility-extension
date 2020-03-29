@@ -14,8 +14,8 @@ function hideVideoInputs() {
     return new Array().slice.apply(document.getElementsByTagName('video')).map(hideYouTubeVideoInput);
 }
 
-
-//YouTube PoC
+//YouTube PoC - This was a specially made variant that is meant to handle YouTube videos
+//Which was required for their custom CSS.
 function hideYouTubeVideoInput(input) {
     if ((input.parentNode.parentNode.parentNode.className != "canvas")
             ||  !IsNullOrWhiteSpace(input.getAttribute("hideInputDisabled"))) {
@@ -25,7 +25,6 @@ function hideYouTubeVideoInput(input) {
         inputHider.className = "canvas";
 
         var hide = function() {
-
             var style = input.getAttribute("style");
             inputHider.setAttribute("style", style);
             inputHider.style.margin = "auto";
@@ -71,10 +70,8 @@ function youTubeCanvasHider(inputHider, input) {
 }
 //end YouTube PoC
 
-
-
 function hideVideoInput(input) {
-    if ((input.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.className != "canvas")
+    if ((input.parentNode.className != "canvas")
             ||  !IsNullOrWhiteSpace(input.getAttribute("hideInputDisabled"))) {
         input.pause();
         
@@ -82,15 +79,9 @@ function hideVideoInput(input) {
         inputHider.className = "canvas";
 
         var hide = function() {
-            // inputHider.style.width = input.style.width;
-            // inputHider.style.height = input.style.height;
-            // inputHider.style.right = input.style.right;
-            // inputHider.style.left = input.style.left;
-            // inputHider.style.top = input.style.top;
-            // inputHider.style.bottom = input.style.bottom;
-
-            var style = input.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("style");
+            var style = input.getAttribute("style");
             inputHider.setAttribute("style", style);
+            inputHider.style.margin = "auto";
 
             var ctx = inputHider.getContext('2d');
             ctx.fillStyle = '#CDCDCD';

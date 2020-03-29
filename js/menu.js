@@ -1,7 +1,6 @@
-$(function() {
-    
+$(function() { 
     init();
-
+    
     document.getElementById('save-button').onclick = function(e) {
         aeOptions = {};
         overide = '';
